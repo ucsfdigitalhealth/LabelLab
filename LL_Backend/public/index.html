@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>
+      TikTokActions - TikTok-Derived Video Dataset for Human Action Recognition
+    </title>
+
+    <!-- CSS FILES -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet" />
+
+    <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet" />
+  </head>
+
+  <body id="section_1">
+    <header class="site-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-12 d-flex flex-wrap">
+            <p class="d-flex me-4 mb-0">
+              <i class="bi-geo-alt me-2"></i>
+              Hawaii Digital Health Lab, University of Hawaii at Manoa
+            </p>
+
+            <p class="d-flex mb-0">
+              <i class="bi-envelope me-2"></i>
+
+              <a href="mailto:pyw@hawaii.edu"> pyw@hawaii.edu </a>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
+            <ul class="social-icon">
+              <li class="social-icon-item">
+                <a href="#" class="social-icon-link bi-twitter"></a>
+              </li>
+
+              <li class="social-icon-item">
+                <a href="#" class="social-icon-link bi-facebook"></a>
+              </li>
+
+              <li class="social-icon-item">
+                <a href="#" class="social-icon-link bi-instagram"></a>
+              </li>
+
+              <li class="social-icon-item">
+                <a href="#" class="social-icon-link bi-youtube"></a>
+              </li>
+
+              <li class="social-icon-item">
+                <a href="#" class="social-icon-link bi-whatsapp"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img
+            src="images/logo.png"
+            class="logo img-fluid"
+            alt="Kind Heart Charity"
+          />
+          <span>
+            TikTokActions
+            <small>Video Dataset for Human Action Recognition</small>
+          </span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#top">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_2">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_team"
+                >Team Members</a
+              >
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link click-scroll dropdown-toggle"
+                href="#section_5"
+                id="navbarLightDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >News</a
+              >
+
+              <ul
+                class="dropdown-menu dropdown-menu-light"
+                aria-labelledby="navbarLightDropdownMenuLink"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://hawaiidigitalhealthlab.com/news/"
+                    >Our Lab News</a
+                  >
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="#">Dataset News</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_6">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero-section hero-section-full-height">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 col-12 p-0">
+              <div
+                id="hero-slide"
+                class="carousel carousel-fade slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="images/slide/volunteer-helping-with-donation-box.jpg"
+                      class="carousel-image img-fluid"
+                      alt="..."
+                    />
+
+                    <div
+                      class="carousel-caption d-flex flex-column justify-content-end"
+                    >
+                      <h1>Video Dataset</h1>
+
+                      <p>
+                        Domain-specific Foundation Models for Action Recognition
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <img
+                      src="images/slide/volunteer-selecting-organizing-clothes-donations-charity.jpg"
+                      class="carousel-image img-fluid"
+                      alt="..."
+                    />
+
+                    <div
+                      class="carousel-caption d-flex flex-column justify-content-end"
+                    >
+                      <h1>Versatile Data</h1>
+
+                      <p>Valuable Resource for Human Movement Modeling Tasks</p>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#hero-slide"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#hero-slide"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-padding">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 col-12 text-center mx-auto">
+              <h2 class="mb-5">TikTokActions - Video Dataset</h2>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+              <div
+                class="featured-block d-flex justify-content-center align-items-center"
+              >
+                <a href="#" class="d-block">
+                  <img
+                    src="images/icons/diversity.png"
+                    class="featured-block-image img-fluid"
+                    alt=""
+                  />
+
+                  <p class="featured-block-text">
+                    <strong>Diverse</strong> Actions and Movements
+                  </p>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
+              <div
+                class="featured-block d-flex justify-content-center align-items-center"
+              >
+                <a href="#" class="d-block">
+                  <img
+                    src="images/icons/annotate.png"
+                    class="featured-block-image img-fluid"
+                    alt=""
+                  />
+
+                  <p class="featured-block-text">
+                    <strong>High-Quality</strong> Annotations
+                  </p>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
+              <div
+                class="featured-block d-flex justify-content-center align-items-center"
+              >
+                <a href="#" class="d-block">
+                  <img
+                    src="images/icons/variability.png"
+                    class="featured-block-image img-fluid"
+                    alt=""
+                  />
+
+                  <p class="featured-block-text">
+                    <strong>Variability</strong> in Scenes and Contexts
+                  </p>
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+              <div
+                class="featured-block d-flex justify-content-center align-items-center"
+              >
+                <a href="#" class="d-block">
+                  <img
+                    src="images/icons/frame.png"
+                    class="featured-block-image img-fluid"
+                    alt=""
+                  />
+
+                  <p class="featured-block-text">
+                    Temporal Consistency and Frame Rate
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-padding section-bg" id="section_2">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+              <img
+                src="images/group-people-volunteering-foodbank-poor-people.jpg"
+                class="custom-text-box-image img-fluid"
+                alt=""
+              />
+            </div>
+
+            <div class="col-lg-6 col-12">
+              <div class="custom-text-box">
+                <h2 class="mb-2">TikTokActions</h2>
+
+                <h5 class="mb-3">A TikTok-Derived Video Dataset</h5>
+
+                <p class="mb-0">
+                  We release this dataset as a valuable resource for building
+                  domain-specific foundation models for human movement modeling
+                  tasks such as action recognition.
+                </p>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div class="custom-text-box mb-lg-0">
+                    <h5 class="mb-3">Our Mission</h5>
+
+                    <p>Building domain-specific foundation models for</p>
+
+                    <ul class="custom-list mt-2">
+                      <li class="custom-list-item d-flex">
+                        <i class="bi-check custom-text-box-icon me-2"></i>
+                        Action Recognition
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-12">
+                  <div
+                    class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0"
+                  >
+                    <div class="counter-thumb">
+                      <div class="d-flex">
+                        <span
+                          class="counter-number"
+                          data-from="1"
+                          data-to="283582"
+                          data-speed="1000"
+                        ></span>
+                        <span class="counter-number-text"></span>
+                      </div>
+
+                      <span class="counter-text">Video Clips</span>
+                    </div>
+
+                    <div class="counter-thumb mt-4">
+                      <div class="d-flex">
+                        <span
+                          class="counter-number"
+                          data-from="1"
+                          data-to="386"
+                          data-speed="1000"
+                        ></span>
+                      </div>
+
+                      <span class="counter-text">Hashtags</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="testimonial-section section-padding section-bg"
+        id="section_team"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+              <h2 class="mb-lg-3">Team Members</h2>
+
+              <div
+                id="testimonial-carousel"
+                class="carousel carousel-fade slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Yang Qian</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Yang</span>, Ph.D.
+                        Student Researcher</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Yinan Sun</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Yinan</span>, Ph.D.
+                        Student Researcher</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Ali Kargarandehkordi</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Ali</span>, Ph.D.
+                        Student Researcher</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Onur Cezmi Mutlu</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Cezmi</span>, Ph.D.
+                        Student Researcher</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Saimourya Surabhi</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Mourya</span>,
+                        Research Data Analyst</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Dennis Wall</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Dennis</span>,
+                        Principal Investigator</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h4 class="carousel-title">Peter Washington</h4>
+
+                      <small class="carousel-name"
+                        ><span class="carousel-name-title">Peter</span>,
+                        Principal Investigator</small
+                      >
+                    </div>
+                  </div>
+
+                  <ol class="carousel-indicators">
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="0"
+                      class="active"
+                    >
+                      <img
+                        src="images/avatar/yang.jpg"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="1"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/yinan.jpg"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="2"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/ali.jpg"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="3"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/cezmi.jfif"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="4"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/mourya.png"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="5"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/dennis.png"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+
+                    <li
+                      data-bs-target="#testimonial-carousel"
+                      data-bs-slide-to="6"
+                      class=""
+                    >
+                      <img
+                        src="images/avatar/peter.jpg"
+                        class="img-fluid rounded-circle avatar-image"
+                        alt="avatar"
+                      />
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section section-padding" id="section_6">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-12 ms-auto mb-5 mb-lg-0">
+              <div class="contact-info-wrap">
+                <h2>Get in touch</h2>
+
+                <div class="contact-image-wrap d-flex flex-wrap">
+                  <img
+                    src="images/avatar/yang.jpg"
+                    class="img-fluid avatar-image"
+                    alt=""
+                  />
+
+                  <div class="d-flex flex-column justify-content-center ms-3">
+                    <p class="mb-0">Yang Qian</p>
+                    <p class="mb-0">
+                      <strong>Ph.D. Student Researcher</strong>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="contact-info">
+                  <h5 class="mb-3">Contact Infomation</h5>
+
+                  <p class="d-flex mb-2">
+                    <i class="bi-geo-alt me-2"></i>
+                    Hawaii Digital Health Lab, 1680 East-West Road, Honolulu
+                  </p>
+
+                  <p class="d-flex mb-2">
+                    <i class="bi-telephone me-2"></i>
+
+                    <a href="tel: 808-00X-000X"> 808-00X-000X </a>
+                  </p>
+
+                  <p class="d-flex">
+                    <i class="bi-envelope me-2"></i>
+
+                    <a href="mailto:info@yourgmail.com">
+                      qianyang@hawaii.edu
+                    </a>
+                  </p>
+
+                  <a href="#" class="custom-btn btn mt-3">Get Direction</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5 col-12 mx-auto">
+              <form
+                class="custom-form contact-form"
+                action="#"
+                method="post"
+                role="form"
+              >
+                <h2>Contact form</h2>
+
+                <p class="mb-4">
+                  Or, you can just send an email:
+                  <a href="#">qianyang@hawaii.edu</a>
+                </p>
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-12">
+                    <input
+                      type="text"
+                      name="first-name"
+                      id="first-name"
+                      class="form-control"
+                      placeholder="Yang"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-12">
+                    <input
+                      type="text"
+                      name="last-name"
+                      id="last-name"
+                      class="form-control"
+                      placeholder="Qian"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  pattern="[^ @]*@[^ @]*"
+                  class="form-control"
+                  placeholder="qianyang@hawaii.edu"
+                  required
+                />
+
+                <textarea
+                  name="message"
+                  rows="5"
+                  class="form-control"
+                  id="message"
+                  placeholder="What can we help you?"
+                ></textarea>
+
+                <button type="submit" class="form-control">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-12 mb-4">
+            <img src="images/logo.png" class="logo img-fluid" alt="" />
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <h5 class="site-footer-title mb-3">Quick Links</h5>
+
+            <ul class="footer-menu">
+              <li class="footer-menu-item">
+                <a href="#" class="footer-menu-link">Our Dataset</a>
+              </li>
+
+              <li class="footer-menu-item">
+                <a href="#" class="footer-menu-link">Newsroom</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12 mx-auto">
+            <h5 class="site-footer-title mb-3">Contact Infomation</h5>
+
+            <p class="text-white d-flex mb-2">
+              <i class="bi-telephone me-2"></i>
+
+              <a href="tel: 808-00X-000X" class="site-footer-link">
+                808-00X-000X
+              </a>
+            </p>
+
+            <p class="text-white d-flex">
+              <i class="bi-envelope me-2"></i>
+
+              <a href="mailto:pyw@hawaii.edu" class="site-footer-link">
+                pyw@hawaii.edu
+              </a>
+            </p>
+
+            <p class="text-white d-flex mt-3">
+              <i class="bi-geo-alt me-2"></i>
+              Hawaii Digital Health Lab, 1680 East-West Road, Honolulu
+            </p>
+
+            <a href="#" class="custom-btn btn mt-3">Get Direction</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-7 col-12">
+              <p class="copyright-text mb-0">
+                <a href="#">TikTokActions,</a>
+                <a href="https://hawaiidigitalhealthlab.com/" target="_blank"
+                  >Hawaii Digital Health Lab</a
+                >
+              </p>
+            </div>
+
+            <div
+              class="col-lg-6 col-md-5 col-12 d-flex justify-content-center align-items-center mx-auto"
+            >
+              <ul class="social-icon">
+                <li class="social-icon-item">
+                  <a href="#" class="social-icon-link bi-twitter"></a>
+                </li>
+
+                <li class="social-icon-item">
+                  <a href="#" class="social-icon-link bi-facebook"></a>
+                </li>
+
+                <li class="social-icon-item">
+                  <a href="#" class="social-icon-link bi-instagram"></a>
+                </li>
+
+                <li class="social-icon-item">
+                  <a href="#" class="social-icon-link bi-linkedin"></a>
+                </li>
+
+                <li class="social-icon-item">
+                  <a href="#" class="social-icon-link bi-youtube"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>
