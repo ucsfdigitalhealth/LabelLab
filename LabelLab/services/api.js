@@ -1,6 +1,7 @@
 const api = [
   {
     id: 0,
+    category: "piano",
     video: require("../assets/videos/01.mp4"),
     poster: require("../assets/poster/01.jpg"),
     user: {
@@ -18,6 +19,7 @@ const api = [
   },
   {
     id: 1,
+    category: "dancing",
     video: require("../assets/videos/02.mp4"),
     poster: require("../assets/poster/02.jpg"),
     user: {
@@ -34,6 +36,7 @@ const api = [
   },
   {
     id: 2,
+    category: "boxing",
     video: require("../assets/videos/03.mp4"),
     poster: require("../assets/poster/03.jpg"),
     user: {

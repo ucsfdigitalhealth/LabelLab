@@ -35,30 +35,6 @@
               <a href="mailto:pyw@hawaii.edu"> pyw@hawaii.edu </a>
             </p>
           </div>
-
-          <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
-            <ul class="social-icon">
-              <li class="social-icon-item">
-                <a href="#" class="social-icon-link bi-twitter"></a>
-              </li>
-
-              <li class="social-icon-item">
-                <a href="#" class="social-icon-link bi-facebook"></a>
-              </li>
-
-              <li class="social-icon-item">
-                <a href="#" class="social-icon-link bi-instagram"></a>
-              </li>
-
-              <li class="social-icon-item">
-                <a href="#" class="social-icon-link bi-youtube"></a>
-              </li>
-
-              <li class="social-icon-item">
-                <a href="#" class="social-icon-link bi-whatsapp"></a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </header>
@@ -97,6 +73,12 @@
 
             <li class="nav-item">
               <a class="nav-link click-scroll" href="#section_2">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link click-scroll" href="#section_3"
+                >Download Dataset</a
+              >
             </li>
 
             <li class="nav-item">
@@ -325,7 +307,7 @@
                 </p>
               </div>
 
-              <div class="row">
+              <div class="row mt-4">
                 <div class="col-lg-6 col-md-6 col-12">
                   <div class="custom-text-box mb-lg-0">
                     <h5 class="mb-3">Our Mission</h5>
@@ -376,6 +358,54 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        class="section-padding"
+        id="section_3"
+        style="background-color: white"
+      >
+        <!-- Additional Component -->
+        <div class="container">
+          <div class="row mt-4">
+            <div class="col-lg-12">
+              <div class="custom-text-box" style="background-color: #f2f2f2">
+                <h2 class="mb-2">Access to the Dataset</h2>
+
+                <p>
+                  To access the dataset, please fill in the following form:
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfTQcWANFssFOTxyOFMkEeKz8TXEI3W9POkGsZXsuMgsD37sw/viewform"
+                    target="_blank"
+                    style="color: blue; text-decoration: underline"
+                    >Dataset Access Form</a
+                  >. Once the form is submitted, you will receive a link to
+                  download the dataset. Please note that it is essential to
+                  provide proper acknowledgment to the original authors and cite
+                  the following paper in your research appropriately.
+                </p>
+
+                <p style="font-weight: bold">
+                  Qian, Yang, Yinan Sun, Ali Kargarandehkordi, Onur Cezmi Mutlu,
+                  Saimourya Surabhi, Pingyi Chen, Zain Jabbar, Dennis Paul Wall,
+                  and Peter Washington. "TikTokActions: A TikTok-Derived Video
+                  Dataset for Human Action Recognition." arXiv preprint
+                  arXiv:2402.08875 (2024).
+                </p>
+                <p>
+                  <a
+                    href="https://arxiv.org/pdf/2402.08875.pdf"
+                    target="_blank"
+                    id="downloadLink"
+                    style="color: blue; text-decoration: underline"
+                    >Download the Paper</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Additional Component -->
         </div>
       </section>
 
@@ -593,12 +623,6 @@
                     Hawaii Digital Health Lab, 1680 East-West Road, Honolulu
                   </p>
 
-                  <p class="d-flex mb-2">
-                    <i class="bi-telephone me-2"></i>
-
-                    <a href="tel: 808-00X-000X"> 808-00X-000X </a>
-                  </p>
-
                   <p class="d-flex">
                     <i class="bi-envelope me-2"></i>
 
@@ -606,8 +630,6 @@
                       qianyang@hawaii.edu
                     </a>
                   </p>
-
-                  <a href="#" class="custom-btn btn mt-3">Get Direction</a>
                 </div>
               </div>
             </div>
@@ -632,7 +654,7 @@
                       name="first-name"
                       id="first-name"
                       class="form-control"
-                      placeholder="Yang"
+                      placeholder="Your first name"
                       required
                     />
                   </div>
@@ -643,7 +665,7 @@
                       name="last-name"
                       id="last-name"
                       class="form-control"
-                      placeholder="Qian"
+                      placeholder="Your last name"
                       required
                     />
                   </div>
@@ -655,7 +677,7 @@
                   id="email"
                   pattern="[^ @]*@[^ @]*"
                   class="form-control"
-                  placeholder="qianyang@hawaii.edu"
+                  placeholder="Your email"
                   required
                 />
 
@@ -664,7 +686,7 @@
                   rows="5"
                   class="form-control"
                   id="message"
-                  placeholder="What can we help you?"
+                  placeholder="Type your message here"
                 ></textarea>
 
                 <button type="submit" class="form-control">Send Message</button>
@@ -679,7 +701,12 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-12 mb-4">
-            <img src="images/logo.png" class="logo img-fluid" alt="" />
+            <img
+              src="images/logofooter.png"
+              style="width: 50%"
+              class="logo img-fluid"
+              alt=""
+            />
           </div>
 
           <div class="col-lg-4 col-md-6 col-12 mb-4">
@@ -687,11 +714,9 @@
 
             <ul class="footer-menu">
               <li class="footer-menu-item">
-                <a href="#" class="footer-menu-link">Our Dataset</a>
-              </li>
-
-              <li class="footer-menu-item">
-                <a href="#" class="footer-menu-link">Newsroom</a>
+                <a class="site-footer-link click-scroll" href="#section_3"
+                  >Our Dataset</a
+                >
               </li>
             </ul>
           </div>
@@ -699,11 +724,19 @@
           <div class="col-lg-4 col-md-6 col-12 mx-auto">
             <h5 class="site-footer-title mb-3">Contact Infomation</h5>
 
-            <p class="text-white d-flex mb-2">
-              <i class="bi-telephone me-2"></i>
+            <p class="text-white d-flex mt-3">
+              <i class="bi-geo-alt me-2"></i>
+              Hawaii Digital Health Lab, 1680 East-West Road, Honolulu
+            </p>
 
-              <a href="tel: 808-00X-000X" class="site-footer-link">
-                808-00X-000X
+            <p class="text-white d-flex">
+              <i class="bi-person me-2"></i>
+
+              <a
+                href="https://peterwashington.github.io/"
+                class="site-footer-link"
+              >
+                Principal Investigator: Peter Washington
               </a>
             </p>
 
@@ -714,13 +747,6 @@
                 pyw@hawaii.edu
               </a>
             </p>
-
-            <p class="text-white d-flex mt-3">
-              <i class="bi-geo-alt me-2"></i>
-              Hawaii Digital Health Lab, 1680 East-West Road, Honolulu
-            </p>
-
-            <a href="#" class="custom-btn btn mt-3">Get Direction</a>
           </div>
         </div>
       </div>
@@ -735,32 +761,6 @@
                   >Hawaii Digital Health Lab</a
                 >
               </p>
-            </div>
-
-            <div
-              class="col-lg-6 col-md-5 col-12 d-flex justify-content-center align-items-center mx-auto"
-            >
-              <ul class="social-icon">
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-twitter"></a>
-                </li>
-
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-facebook"></a>
-                </li>
-
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-instagram"></a>
-                </li>
-
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-linkedin"></a>
-                </li>
-
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-youtube"></a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

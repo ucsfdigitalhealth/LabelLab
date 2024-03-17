@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import styled from "styled-components/native";
-import { TouchableOpacity } from "react-native";
+import {
+  TouchableOpacity,
+  Modal,
+  View,
+  TextInput,
+  Button as RNButton,
+} from "react-native";
 
 const Container = styled.View`
   flex: 1;
@@ -56,18 +62,102 @@ const HorizontalScroll = styled.ScrollView`
   flex-shrink: 0;
 `;
 
-const InfoCom = ({ user }) => {
-  const [activeHashtags, setActiveHashtags] = useState([]);
+const QuestionContainer = styled.View`
+  margin-top: 10px;
+`;
+
+const QuestionText = styled.Text`
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 5px;
+`;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  margin-top: 5px;
+`;
+
+const Button = styled.TouchableOpacity`
+  padding: 8px 15px;
+  background-color: ${(props) => (props.active ? "#00FF00" : "#808080")};
+  border-radius: 5px;
+  margin-right: 10px;
+`;
+
+const ButtonText = styled.Text`
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const ModalContent = styled.View`
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 80px;
+`;
+
+const ButtonContainerModal = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+const ButtonModal = styled.TouchableOpacity`
+  padding: 10px 20px;
+  background-color: #00ff00;
+  border-radius: 5px;
+`;
+
+const ButtonTextModal = styled.Text`
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const RatingInput = styled.TextInput`
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+`;
+
+const InfoCom = ({ user, category }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [selectedHashtag, setSelectedHashtag] = useState(null);
+  const [ratings, setRatings] = useState({});
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const toggleHashtag = (hashtag) => {
-    if (activeHashtags.includes(hashtag)) {
-      setActiveHashtags(activeHashtags.filter((h) => h !== hashtag));
-    } else {
-      setActiveHashtags([...activeHashtags, hashtag]);
-    }
+    setSelectedHashtag(hashtag);
+    setModalVisible(true);
   };
 
-  const hashtags = user.hashtag.split(", ");
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setSelectedHashtag(null);
+  };
+
+  const handleRatingSubmit = () => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [selectedHashtag]: rating,
+    }));
+    setModalVisible(false);
+  };
+
+  const handleToggleHashtag = (hashtag) => {
+    setSelectedHashtag(hashtag);
+    setRating(ratings[hashtag] || 0);
+    setModalVisible(true);
+  };
+
+  const handleAnswer = (ans) => {
+    setSelectedAnswer(ans);
+  };
+
+  const hashtags = user ? user.hashtag.split(", ") : [];
 
   return (
     <Container>
@@ -75,13 +165,38 @@ const InfoCom = ({ user }) => {
         <UserName>@{user.username}</UserName>
         <Checked source={require("../assets/icons/checked.png")} />
       </User>
+      <QuestionContainer>
+        <QuestionText>
+          Do you think this video is related to the "{category}" category?
+        </QuestionText>
+        <ButtonContainer>
+          <Button
+            active={selectedAnswer === "yes"}
+            onPress={() => handleAnswer("yes")}
+          >
+            <ButtonText>Yes</ButtonText>
+          </Button>
+          <Button
+            active={selectedAnswer === "no"}
+            onPress={() => handleAnswer("no")}
+          >
+            <ButtonText>No</ButtonText>
+          </Button>
+        </ButtonContainer>
+      </QuestionContainer>
+      <QuestionContainer>
+        <QuestionText>
+          Rate each hashtag's relevance to this video from 0 to 10.
+        </QuestionText>
+      </QuestionContainer>
       <HorizontalScroll horizontal>
         {hashtags.map((tag, index) => (
-          <TouchableOpacity key={index} onPress={() => toggleHashtag(tag)}>
-            <HashtagContainer active={activeHashtags.includes(tag)}>
-              <HashtagText active={activeHashtags.includes(tag)}>
-                {tag}
-              </HashtagText>
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleToggleHashtag(tag)}
+          >
+            <HashtagContainer active={ratings[tag] !== undefined}>
+              <HashtagText>{tag}</HashtagText>
             </HashtagContainer>
           </TouchableOpacity>
         ))}
@@ -90,6 +205,33 @@ const InfoCom = ({ user }) => {
         <Feather name="music" size={13} />
         {user.music}
       </Music>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={handleModalClose}
+      >
+        <ModalContent>
+          <QuestionText>
+            Rate the relevance of "{selectedHashtag}" on a scale of 0 to 10:
+          </QuestionText>
+          <RatingInput
+            keyboardType="numeric"
+            value={rating.toString()}
+            onChangeText={(text) => setRating(parseInt(text))}
+            placeholder="Enter rating (0-10)"
+            placeholderTextColor="#888"
+          />
+          <ButtonContainerModal>
+            <ButtonModal onPress={handleRatingSubmit}>
+              <ButtonTextModal>Submit</ButtonTextModal>
+            </ButtonModal>
+            <ButtonModal onPress={handleModalClose}>
+              <ButtonTextModal>Cancel</ButtonTextModal>
+            </ButtonModal>
+          </ButtonContainerModal>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 };

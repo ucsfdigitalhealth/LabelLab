@@ -1,0 +1,17 @@
+export default {
+  primary: "#39c4f3",
+  secondary: "#2eb57d",
+  third: "#e6df44",
+  bgcolor: "#4a154b",
+  bglight: "#022233",
+  logo: "#fa1010",
+  white: "#fff",
+  black: "#000",
+  medium: "#6e6969",
+  lightGray: "#D3D3D3",
+  darkGray: "#0c0c0c",
+  error: "#fa1010",
+  lightGreen: "#063852",
+  darkGreen: "#063852",
+  blue: "#45b6fe",
+};

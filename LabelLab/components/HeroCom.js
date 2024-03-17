@@ -48,7 +48,7 @@ const HeroCom = ({ videos }) => {
         ]}
       >
         <Center>
-          <InfoCom user={item.user} />
+          <InfoCom user={item.user} category={item.category} />
           <SidebarCom avatar={item.user.avatar} count={item.count} />
         </Center>
       </Gradient>
