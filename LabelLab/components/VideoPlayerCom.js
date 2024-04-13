@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Video } from "expo-av";
+import { Video, ResizeMode } from "expo-av";
 
 import styled from "styled-components/native";
 
@@ -21,7 +21,7 @@ const VideoPlayerCom = ({ video, poster, isPlay }) => {
       useNativeControls={false}
       posterSource={poster}
       source={video}
-      resizeMode="cover"
+      resizeMode={ResizeMode.CONTAIN}
       playsInSilentLockedModeIOS={true}
     />
   ) : (
