@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
+import { Dimensions } from "react-native";
+
+const { height } = Dimensions.get("window");
 
 const Container = styled.View`
   width: 60px;
@@ -44,7 +47,7 @@ const SoundBg = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 12px;
-  margin-bottom: 10px;
+  margin-bottom: ${height * 0.03}px;
 `;
 const Sound = styled.Image`
   width: 25px;

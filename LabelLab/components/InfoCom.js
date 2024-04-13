@@ -33,7 +33,7 @@ const HashtagContainer = styled.View`
     props.active ? "rgba(0, 128, 0, 0.5)" : "rgba(128, 128, 128, 0.8)"};
   border-radius: 10px;
   padding: 5px 10px;
-  margin-top: 6px;
+  margin-top: 15px;
   margin-right: 5px;
 `;
 
@@ -44,11 +44,22 @@ const HashtagText = styled.Text`
   letter-spacing: -0.2px;
 `;
 
-const Music = styled.Text`
+const Music = styled.View`
+  width: 80%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  flex-direction: row; 
+  align-items: center;
+`;
+
+const FeatherIcon = styled(Feather)`
+  margin-right: 10px;
+  color: #fff;
+`;
+
+const MusicText = styled.Text`
   font-size: 15px;
   color: #fff;
-  margin-top: 13px;
-  width: 80%;
 `;
 
 const HorizontalScroll = styled.ScrollView`
@@ -87,8 +98,8 @@ const InfoCom = ({ user }) => {
         ))}
       </HorizontalScroll>
       <Music>
-        <Feather name="music" size={13} />
-        {user.music}
+        <FeatherIcon name="music" size={13} />
+        <MusicText>{user.music}</MusicText>
       </Music>
     </Container>
   );
