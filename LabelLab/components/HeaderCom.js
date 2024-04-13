@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components/native";
 
 const Container = styled.View`
-  top: 30px;
+  top: 35px;
   width: 100%;
   justify-content: center;
   align-items: center;
