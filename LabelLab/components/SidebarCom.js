@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { Dimensions } from "react-native";
+import { Dimensions, Animated, Easing } from "react-native";
 
 const { height } = Dimensions.get("window");
 
@@ -39,7 +39,13 @@ const LikeIcon = styled.TouchableOpacity`
   margin-top: 1px;
 `;
 
-const SoundBg = styled.View`
+const Sound = styled.Image`
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+`;
+
+const SoundBg = styled(Animated.View)`
   background: #1f191f;
   width: 50px;
   height: 50px;
@@ -48,11 +54,7 @@ const SoundBg = styled.View`
   align-items: center;
   margin-top: 12px;
   margin-bottom: ${height * 0.03}px;
-`;
-const Sound = styled.Image`
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
+  transform: rotate(0deg);
 `;
 
 const SidebarCom = ({ avatar, count }) => {
@@ -61,6 +63,21 @@ const SidebarCom = ({ avatar, count }) => {
   const toggleLike = () => {
     setLiked(!liked);
   };
+
+  const spinValue = new Animated.Value(0);
+  Animated.loop(
+    Animated.timing(spinValue, {
+      toValue: 1,
+      duration: 7500,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    })
+  ).start();
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  });
 
   return (
     <Container>
@@ -101,7 +118,7 @@ const SidebarCom = ({ avatar, count }) => {
       </Menu>
 
       <Menu>
-        <SoundBg>
+        <SoundBg style={{ transform: [{ rotate: spin }] }}>
           <Sound resizeMode="cover" source={avatar} />
         </SoundBg>
       </Menu>
