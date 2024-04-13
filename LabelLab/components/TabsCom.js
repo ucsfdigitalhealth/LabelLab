@@ -11,20 +11,22 @@ import styled from "styled-components/native";
 const { height } = Dimensions.get("window");
 
 const Container = styled.View`
-  height: ${height * 0.07}px;
+  height: ${height * 0.09}px;
   width: 100%;
   position: absolute;
-  bottom: 10;
+  bottom: 0px;
   z-index: 1;
   border-top-width: 1px;
   border-top-color: rgba(255, 255, 255, 0.2);
   flex-direction: row;
+  background-color: black;
 `;
 const Menu = styled.TouchableOpacity`
   width: 20%;
   height: 100%;
   justify-content: center;
   align-items: center;
+  margin-top: -${height * 0.01}px;
 `;
 const Icon = styled.Image.attrs({ resizeMode: "contain" })`
   height: 32px;
