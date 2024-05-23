@@ -32,7 +32,7 @@ const HeroCom = ({ videos }) => {
   const videoContainerHeight = height;
 
   const renderItem = ({ item, index }) => (
-    <View style={{ height: videoContainerHeight * 1.06 }}>
+    <View style={{ height: videoContainerHeight * 1.05 }}>
       <VideoPlayerCom
         video={item.video}
         poster={item.poster}
