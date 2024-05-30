@@ -67,7 +67,6 @@ const HeroCom = ({ videos }) => {
           if (viewableItems && viewableItems.length > 0) {
             setSelected(viewableItems[0].index);
           }
-          console.log('scrolled')
         }}
         viewabilityConfig={{ itemVisiblePercentThreshold: 90 }}
       />
