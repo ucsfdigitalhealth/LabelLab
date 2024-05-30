@@ -24,7 +24,7 @@ app.listen(port, () => {
 
 const hashtag = new mongoose.Schema({
   name: String,
-  ratings: [Number],
+  count: Number,
 })
 
 const Hashtag = mongoose.model('Hashtag', hashtag);

@@ -27,9 +27,10 @@ const Separator = styled.View`
 `;
 
 const HeaderCom = () => {
+  console.log("test");
   return (
     <Container>
-      <Menu>Following</Menu>
+      <Menu>Followingtesttesttest</Menu>
       <Separator />
       <Menu bold="true">For you</Menu>
     </Container>
