@@ -7,7 +7,6 @@ import {
   View,
   TextInput,
   Button as RNButton,
-  Text
 } from "react-native";
 
 const Container = styled.View`
@@ -166,7 +165,6 @@ const InfoCom = ({ user, category }) => {
         <UserName>@{user.username}</UserName>
         <Checked source={require("../assets/icons/checked.png")} />
       </User>
-      {/* <Text style={{color: 'white'}}>List of ratings: {JSON.stringify(ratings)}</Text> */}
       <QuestionContainer>
         <QuestionText>
           Do you think this video is related to the "{category}" category?
@@ -219,8 +217,8 @@ const InfoCom = ({ user, category }) => {
           </QuestionText>
           <RatingInput
             keyboardType="numeric"
-            value={isNaN(rating) ? '' : rating.toString()}
-            onChangeText={(text) => {setRating(parseInt(text))}}
+            value={rating.toString()}
+            onChangeText={(text) => setRating(parseInt(text))}
             placeholder="Enter rating (0-10)"
             placeholderTextColor="#888"
           />
