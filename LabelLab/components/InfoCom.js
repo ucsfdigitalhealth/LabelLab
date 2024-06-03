@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import {
@@ -122,7 +122,7 @@ const RatingInput = styled.TextInput`
   margin-top: 10px;
 `;
 
-const InfoCom = ({ user, category }) => {
+const InfoCom = ({ user, category, retrieveStateFromChild }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [rating, setRating] = useState(0);
   const [selectedHashtag, setSelectedHashtag] = useState(null);
@@ -144,8 +144,14 @@ const InfoCom = ({ user, category }) => {
       ...prevRatings,
       [selectedHashtag]: rating,
     }));
+    
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    retrieveStateFromChild(ratings);
+  }, [ratings])
+  
 
   const handleToggleHashtag = (hashtag) => {
     setSelectedHashtag(hashtag);
