@@ -217,7 +217,7 @@ const InfoCom = ({ user, category }) => {
           </QuestionText>
           <RatingInput
             keyboardType="numeric"
-            value={rating.toString()}
+            value={isNaN(rating) ? '' : rating.toString()}
             onChangeText={(text) => setRating(parseInt(text))}
             placeholder="Enter rating (0-10)"
             placeholderTextColor="#888"
