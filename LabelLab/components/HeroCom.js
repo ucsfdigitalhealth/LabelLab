@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Dimensions, View, FlatList, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient/build/LinearGradient";
 import styled from "styled-components/native";
@@ -31,28 +31,36 @@ const HeroCom = ({ videos }) => {
   const [selected, setSelected] = useState(0);
   const [currentVidID, setCurrentVidID] = useState("");
   const [hashtagData, setHashtagData] = useState({});
+  const [userScrolled, setUserScrolled] = useState(false);
   const videoContainerHeight = height;
 
   const setHashtagFromChild = (data) => {
     setHashtagData({...data})
   }
 
-  async function submitHashtagData() {
-    console.log("sending data")
-    return fetch('http://localhost:3000/new', {
-      method: 'POST',
-      body: JSON.stringify({
-        videoID: currentVidID,
-        htData: hashtagData,
-      }),
-      headers: {
-          'Content-Type': 'application/json'
-      },
-    }).then((err, data) => {
-      if (err) console.log(err);
-      console.log('successfully added ' + data)
-    })
+  useEffect(() => {
+    sendHashtagData();
+  }, [selected])
+
+  async function sendHashtagData() {
+    if (userScrolled) {
+      console.log("sending data");
+      return fetch('https://labellab.up.railway.app/new', {
+        method: 'POST',
+        body: JSON.stringify({
+          videoID: currentVidID,
+          htData: hashtagData,
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+      }).then((data) => {
+        console.log('successfully added ' + JSON.stringify(data))
+      })
+    }
+    
   }
+
 
   const renderItem = ({ item, index }) => (
     <View style={{ height: videoContainerHeight * 1.05 }}>
@@ -90,9 +98,10 @@ const HeroCom = ({ videos }) => {
         onViewableItemsChanged={({ viewableItems }) => {
           console.log(viewableItems);
           if (viewableItems && viewableItems.length > 0) {
-            submitHashtagData();
+            // submitHashtagData();
             setSelected(viewableItems[0].index);
             setCurrentVidID(viewableItems[0].item.id.toString());
+            setUserScrolled(true)
           }
         }}
         viewabilityConfig={{ itemVisiblePercentThreshold: 80 }}

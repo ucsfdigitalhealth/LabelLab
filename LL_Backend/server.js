@@ -1,3 +1,5 @@
+// the updated server.js file is separately deployed temporarily for testing purposes. The code is at https://github.com/origamitician/LabelLabAPI2. 
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -31,7 +33,7 @@ const htag = new mongoose.Schema({
 })
 
 const Hashtags = mongoose.model('Hashtags', htag);
-app.get('/newtest', (req, res) => {
+app.post('/new', (req, res) => {
   let h = new Hashtags({
     videoCategory: 'test',
     videoID: '1234567',
