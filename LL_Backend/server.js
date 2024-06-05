@@ -4,14 +4,16 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 const app = express();
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true}).then(() => {
-    console.log('successfully connected to database')
+  console.log("connected to database")
 })
-console.log(process.env);
 
-const port = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname, "public")));
 
+// Optionally, set up a specific route for the index.html
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -33,27 +35,45 @@ const htag = new mongoose.Schema({
 })
 
 const Hashtags = mongoose.model('Hashtags', htag);
-app.post('/new', (req, res) => {
-  let h = new Hashtags({
-    videoCategory: 'test',
-    videoID: '1234567',
-    numSubmissions: 5,
-    isRelatedCount: 3,
-    hashtags: ['#lorem', '#ipsum', '#what'],
-    hashtagInfo: [
-      {hashtagName: '#lorem', hashtagAvg: 4.5, hashtagSubmissions: 4, hashtagRatingArray: [4, 4, 5, 5]},
-      {hashtagName: '#ipsum', hashtagAvg: 4, hashtagSubmissions: 3, hashtagRatingArray: [3, 4, 5]},
-      {hashtagName: '#what', hashtagAvg: 8, hashtagSubmissions: 5, hashtagRatingArray: [6, 7, 8, 9, 10]},
-    ]
-  })
+app.post('/new', jsonParser, (req, res) => {
+  console.log("post requested")
+  let bodyData = req.body;
+  let songID = bodyData.videoID.toString()
+  console.log("songID to look for is " + songID)
+  Hashtags.findOne({videoID: songID}).then((data) => {
+    console.log("> Data is: " + JSON.stringify(data))
+    if (data) {
+      // if there is an object with an video ID inserted.
+      console.log("Video ID exists")
 
-  h.save().then((err, docs) => {
-    if (err) console.log(err);
-    res.send(`Successfully added`)
+      // merge the incoming data.
+      let tempMergedData = {...data};
+      
+    } else {
+      console.log("Video ID does not exist")
+      let hashtagInfo = [];
+      Object.keys(bodyData.htData).forEach(obj => {
+        const hashtagValue = bodyData.htData[obj]
+        hashtagInfo.push({hashtagName: obj, hashtagAvg: hashtagValue, hashtagSubmissions: 1, hashtagRatingArray: [hashtagValue]})
+      })
+      let h = new Hashtags({
+        videoCategory: 'test',
+        videoID: songID,
+        numSubmissions: 1,
+        isRelatedCount: Math.floor(Math.random()*34),
+        hashtags: Object.keys(bodyData.htData),
+        hashtagInfo: hashtagInfo,
+      })
+    
+      h.save().then((err, docs) => {
+        if (err) console.log(err);
+        res.send(`Successfully added`)
+      })
+    }
   })
 })
 
-// Start the server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log("Server is running on port: " + port);
 })
