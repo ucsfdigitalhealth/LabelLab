@@ -46,9 +46,43 @@ app.post('/new', jsonParser, (req, res) => {
       // if there is an object with an video ID inserted.
       console.log("Video ID exists")
 
-      // merge the incoming data.
-      let tempMergedData = {...data};
+      // merge the incoming data. bodyData = incoming mongoDB document, tempMergedData = current mongoDB document.
+      let tempMergedData = data
+      console.log("data is: " + JSON.stringify(tempMergedData))
+      const currentRatedHashtags = tempMergedData.hashtagInfo.map(e => e.hashtagName)
+      tempMergedData.numSubmissions += 1;
+      tempMergedData.isRelatedCount += 1;
+      const mergedArray = tempMergedData.hashtags.concat(currentRatedHashtags);
+      const uniqueArray = mergedArray.filter((value, index) => mergedArray.indexOf(value) === index);
+      tempMergedData.hashtags = uniqueArray;
       
+      
+      Object.keys(bodyData.htData).forEach(key => {
+        const hashtagValue = bodyData.htData[key]
+        const indexOfHashtag = currentRatedHashtags.indexOf(key)
+        if (indexOfHashtag == -1) {
+          // if the incoming hashtag does not exist in the document.
+          tempMergedData.hashtagInfo.push({
+            hashtagName: key, 
+            hashtagAvg: hashtagValue, 
+            hashtagSubmissions: 1, 
+            hashtagRatingArray: [hashtagValue]
+          })
+        } else {
+          // if the incoming hashtag exists in the document.
+          let doc = tempMergedData.hashtagInfo[indexOfHashtag]
+          doc.hashtagSubmissions++;
+          doc.hashtagRatingArray.push(hashtagValue);
+          let avg = doc.hashtagAvg;
+          doc.hashtagAvg += (hashtagValue - avg) / doc.hashtagSubmissions
+        }
+      })
+
+      Hashtags.findOneAndUpdate({videoID: songID}, tempMergedData, {new: true}).then((data) => {
+        console.log("==============================")
+        console.log("Successfully merged. New data is: ")
+        console.log(JSON.stringify(data))
+      })
     } else {
       console.log("Video ID does not exist")
       let hashtagInfo = [];

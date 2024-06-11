@@ -4,7 +4,7 @@ async function sendData() {
         method: 'POST',
         body: JSON.stringify({
             videoID: 35,
-            htData: {hashtag1: 3, hashtag2: 4, hashtag3: 8}
+            htData: {hashtag1: 6, hashtag2: 7, hashtag3: 9, newhashtag4: 5}
         }),
         headers: {
             'Content-Type': 'application/json'
