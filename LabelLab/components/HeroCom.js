@@ -29,41 +29,56 @@ const Center = styled.View`
 
 const HeroCom = ({ videos }) => {
   const [selected, setSelected] = useState(0);
-  const [currentVidID, setCurrentVidID] = useState("");
+  const [prevSelected, setPrevSelected] = useState(0);
   const [hashtagData, setHashtagData] = useState({});
+  const [isRelatedToHashtag, setIsRelatedToHashtag] = useState(false)
   const [userScrolled, setUserScrolled] = useState(false);
   const videoContainerHeight = height;
 
-  const setHashtagFromChild = (data) => {
+  const setHashtagFromChild = (data, isRelated) => {
     setHashtagData({...data})
+    if (isRelated === "yes") {
+      setIsRelatedToHashtag(true)
+    } else {
+      setIsRelatedToHashtag(false)
+    }
   }
 
   useEffect(() => {
-    sendHashtagData();
+    sendHashtagData()
   }, [selected])
 
   async function sendHashtagData() {
-    if (userScrolled) {
-      console.log("sending data");
-      return fetch('https://labellab.up.railway.app/new', {
+    // console.log(JSON.stringify(item))
+    if (Object.keys(hashtagData).length > 0) {
+      console.log("Official: sending data");
+      console.log("Video ID is " + videos[prevSelected].id.toString())
+      fetch('https://labellab.up.railway.app/new', {
         method: 'POST',
         body: JSON.stringify({
-          videoID: currentVidID,
+          videoID: videos[prevSelected].id.toString(),
           htData: hashtagData,
+          isRelated: isRelatedToHashtag
         }),
         headers: {
             'Content-Type': 'application/json'
         },
       }).then((data) => {
         console.log('successfully added ' + JSON.stringify(data))
+         // after the API call is made, update the previous index.
       })
+      setPrevSelected(selected)
+    } else {
+      setPrevSelected(selected)
     }
-    
   }
 
 
-  const renderItem = ({ item, index }) => (
-    <View style={{ height: videoContainerHeight * 1.05 }}>
+  const renderItem = ({ item, index }) => {
+    // setCurrentVidID(item.id.toString())
+    console.log(JSON.stringify(videos[prevSelected].id))
+    return(
+      <View style={{ height: videoContainerHeight * 1.05 }}>
       <VideoPlayerCom
         video={item.video}
         poster={item.poster}
@@ -85,7 +100,9 @@ const HeroCom = ({ videos }) => {
         </Center>
       </Gradient>
     </View>
-  );
+    )
+    
+  };
 
   return (
     <Container>
@@ -96,13 +113,12 @@ const HeroCom = ({ videos }) => {
         pagingEnabled
         showsVerticalScrollIndicator={false}
         onViewableItemsChanged={({ viewableItems }) => {
-          console.log(viewableItems);
+          // sendHashtagData(viewableItems);
           if (viewableItems && viewableItems.length > 0) {
-            // submitHashtagData();
             setSelected(viewableItems[0].index);
-            setCurrentVidID(viewableItems[0].item.id.toString());
-            setUserScrolled(true)
           }
+          // setCurrentVidID(viewableItems[0].item.id.toString());
+          // setUserScrolled(true)
         }}
         viewabilityConfig={{ itemVisiblePercentThreshold: 80 }}
       />

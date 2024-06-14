@@ -142,15 +142,15 @@ const InfoCom = ({ user, category, retrieveStateFromChild }) => {
   const handleRatingSubmit = () => {
     setRatings((prevRatings) => ({
       ...prevRatings,
-      [selectedHashtag]: rating,
+      [selectedHashtag.substring(1)]: rating,
     }));
     
     setModalVisible(false);
   };
 
   useEffect(() => {
-    retrieveStateFromChild(ratings);
-  }, [ratings])
+    retrieveStateFromChild(ratings, selectedAnswer);
+  }, [ratings, selectedAnswer])
   
 
   const handleToggleHashtag = (hashtag) => {

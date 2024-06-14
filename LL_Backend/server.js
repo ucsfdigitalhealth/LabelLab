@@ -3,7 +3,9 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-require("dotenv").config();
+
+require('dotenv').config({ path: path.join(__dirname, 'secrets.env') });
+
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const app = express();
@@ -38,6 +40,7 @@ const Hashtags = mongoose.model('Hashtags', htag);
 app.post('/new', jsonParser, (req, res) => {
   console.log("post requested")
   let bodyData = req.body;
+  console.log(bodyData)
   let songID = bodyData.videoID.toString()
   console.log("songID to look for is " + songID)
   Hashtags.findOne({videoID: songID}).then((data) => {
@@ -104,6 +107,12 @@ app.post('/new', jsonParser, (req, res) => {
         res.send(`Successfully added`)
       })
     }
+  })
+})
+
+app.get("/all", (req, res) => {
+  Hashtags.find({}).then((data) => {
+    res.json(data);
   })
 })
 
