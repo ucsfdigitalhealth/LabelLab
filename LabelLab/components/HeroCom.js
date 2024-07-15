@@ -72,8 +72,7 @@ const HeroCom = ({ videos }) => {
       setPrevSelected(selected)
     }
   }
-
-
+  
   const renderItem = ({ item, index }) => {
     // setCurrentVidID(item.id.toString())
     console.log(JSON.stringify(videos[prevSelected].id))

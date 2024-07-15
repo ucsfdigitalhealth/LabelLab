@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 
 import styled from "styled-components/native";
 import HeaderCom from "../components/HeaderCom";
 import HeroCom from "../components/HeroCom";
 import TabsCom from "../components/TabsCom";
+import VideoUpload from "../components/VideoUpload"
 import { StatusBar } from "react-native";
 import api from "../services/api";
 
@@ -13,6 +14,7 @@ const Container = styled.View`
 `;
 
 const HomeScreen = () => {
+  const [videoUploadShown, setVideoUploadShown] = useState(true);
   return (
     <>
       <StatusBar
@@ -22,6 +24,7 @@ const HomeScreen = () => {
       />
       <Container>
         <HeaderCom />
+        <VideoUpload display={videoUploadShown} />
         <HeroCom videos={api} />
         <TabsCom />
       </Container>
