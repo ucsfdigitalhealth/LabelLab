@@ -1,6 +1,5 @@
 import { ScrollView, RefreshControl, Text,  View, Alert, Pressable} from 'react-native';
-// import Video from 'react-native-video';
-// import DocumentPicker from 'react-native-document-picker'
+// import Video from 'react-native-video'
 import { useEffect, useState } from 'react'
 import styled from "styled-components/native";
 // import axios from 'axios';
@@ -51,6 +50,9 @@ const NoFileUploaded = styled.View`
     width: 60%;
     height: auto;
     text-align: center;
+    alignItems: center;
+    flex: 1;
+    justifyContent: center;
 `
 
 const NoFileUploadedText = styled.Text`
@@ -60,6 +62,18 @@ const NoFileUploadedText = styled.Text`
     font-size: 20px;
     color: grey;
 `
+
+const IndivHashtagText = styled.Text`
+    text-align: center;
+    color: white;
+    background-color: grey;
+    padding: 1% 2.5% 1% 2.5%;
+    font-size: 15px;
+    margin: 0.25% 0.75% 0.25% 0.75%;
+    border-radius: 5px;
+    font-size: 15px;
+`
+
 const VideoUpload = (display) => {
     // related to video uploading.
     const [uploading, setUploading] = useState(false);
@@ -68,25 +82,72 @@ const VideoUpload = (display) => {
     const [refreshing, setRefreshing] = useState(false); 
 
     // related to video fields.
+    const [videoTitle, setVideoTitle] = useState("")
+    const [videoCategory, setVideoCategory] = useState("")
+    const [currentHashtag, setCurrentHashtag] = useState("")
     const [enteredHashtags, setEnteredHashtags] = useState([])
+
+    const updateHashtag = (val) => {
+        // Note: protect against certain hashtags (like an empty one)
+        const currHashtag = val
+        if (currHashtag.substring(currHashtag.length-1) == "," || currHashtag.substring(currHashtag.length-1) == "#" || currHashtag.substring(currHashtag.length-1) == " ") {
+            const hashtagList = [...enteredHashtags]
+            hashtagList.push(currHashtag.substring(0, currHashtag.length-1))
+            setCurrentHashtag("")
+            setEnteredHashtags(hashtagList)
+        } else {
+            setCurrentHashtag(currHashtag)
+        }
+    }
+
+    const removeHashtag = (hash) => {
+        const newHashtags = [...enteredHashtags]
+        const index = newHashtags.indexOf(hash)
+        if (index == -1) {
+            console.log("could not find hashtag.")
+        } else {
+            newHashtags.splice(index, 1)
+            setEnteredHashtags(newHashtags)
+        }
+    }
+
+    const handleVideoUpload = async () => {
+        console.log(DocumentPicker)
+        console.log("pp")
+        try {
+            const pickerResult = await DocumentPicker.pick({
+                type: ['video/*'],
+                presentationStyle: 'fullScreen'
+            })
+
+        } catch (e) {
+            console.log(e)
+            console.log("something went wrong you bigot")
+        }
+    }
 
     return (
         display && (
         <View className="h-full p-10 bg-white">
+            <View style={{height: "3px", background: "linear-gradient(to right, skyblue, red)"}}></View>
             <UploadVideoText>Upload a video</UploadVideoText>
             <VideoFields>
                 <QuestionText>Video Title</QuestionText>
-                <VideoFieldInput placeholder="Video Title"/>
+                <VideoFieldInput placeholder="Video Title" onChangeText={(txt) => setVideoTitle(txt)} value={videoTitle}/>
 
                 <QuestionText>Video Category:</QuestionText>
-                <VideoFieldInput placeholder="e.g. DIY, sports, academic, other, etc..."/>
+                <VideoFieldInput placeholder="e.g. DIY, sports, academic, other, etc..." onChangeText={(txt) => setVideoCategory(txt)} value={videoCategory}/>
                 
                 <QuestionText>Enter relevant hashtags (separate by comma or space):</QuestionText>
-                <VideoFieldInput placeholder="e.g. running"/>
-                <View>
-                    {enteredHashtags.map(hash => (<Text>{hash}</Text>))}
+                <VideoFieldInput placeholder="e.g. running" onChangeText={(txt) => updateHashtag(txt)} value={currentHashtag}/>
+                <View style={{flexDirection: "row", flexWrap: "wrap", marginBottom: "2"}}>
+                    {enteredHashtags.map(hash => (<IndivHashtagText key={hash} onPress={() => removeHashtag(hash)} >{"#" + hash}</IndivHashtagText>))}
                 </View>
-                <UploadMediaBtn>Select Video</UploadMediaBtn>
+                {enteredHashtags.length > 0 && <Text style={{color: "red", marginBottom: "3%"}}>Note: tap on a hashtag to remove it.</Text>}
+                <Pressable onPress = {handleVideoUpload}>
+                    <UploadMediaBtn>Select Video</UploadMediaBtn>
+                </Pressable>
+                
                 <VideoPreview>
                     {files.length == 0 ? (
                         <NoFileUploaded>
@@ -95,8 +156,6 @@ const VideoUpload = (display) => {
                         </NoFileUploaded>) : (<View></View>)}
                 </VideoPreview>
             </VideoFields>
-             
-            
         </View>)
     )
 };
