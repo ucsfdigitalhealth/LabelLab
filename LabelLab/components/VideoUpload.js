@@ -1,5 +1,6 @@
 import { ScrollView, RefreshControl, Text,  View, Alert, Pressable} from 'react-native';
-// import Video from 'react-native-video'
+import * as DocumentPicker from 'expo-document-picker';
+// import Video from './react-native-video';
 import { useEffect, useState } from 'react'
 import styled from "styled-components/native";
 // import axios from 'axios';
@@ -77,6 +78,7 @@ const IndivHashtagText = styled.Text`
 const VideoUpload = (display) => {
     // related to video uploading.
     const [uploading, setUploading] = useState(false);
+    const [temporaryVidURL, setTemporaryVidURL] = useState("")
     const [files, setFiles] = useState([])
     const [fetching, setFetching] = useState(false)
     const [refreshing, setRefreshing] = useState(false); 
@@ -115,14 +117,12 @@ const VideoUpload = (display) => {
         console.log(DocumentPicker)
         console.log("pp")
         try {
-            const pickerResult = await DocumentPicker.pick({
-                type: ['video/*'],
-                presentationStyle: 'fullScreen'
-            })
-
+            const pickerResult = await DocumentPicker.getDocumentAsync({ type: 'video/*' })
+            console.log(pickerResult)
+            setTemporaryVidURL(pickerResult.assets[0].uri)
         } catch (e) {
             console.log(e)
-            console.log("something went wrong you bigot")
+            console.log("something went wrong.")
         }
     }
 
@@ -149,11 +149,18 @@ const VideoUpload = (display) => {
                 </Pressable>
                 
                 <VideoPreview>
-                    {files.length == 0 ? (
+                    {temporaryVidURL == "" ? (
                         <NoFileUploaded>
                             <NoFileUploadedText>No File Uploaded</NoFileUploadedText>
                             <Text style={{textAlign: 'center'}}>When you upload a video, you'll see the preview here.</Text>
-                        </NoFileUploaded>) : (<View></View>)}
+                        </NoFileUploaded>
+                    ) : (
+                        <View>
+                            <Text>Confirming this works.</Text>
+                            <Text>{temporaryVidURL}</Text>
+                            <video src={temporaryVidURL}/>
+                        </View>
+                    )}
                 </VideoPreview>
             </VideoFields>
         </View>)
