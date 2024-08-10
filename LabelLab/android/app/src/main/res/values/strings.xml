@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">LabelLab</string>
+  <string name="app_name">LabelLab</string>
+  <string name="expo_runtime_version">exposdk:51.0.24</string>
 </resources>

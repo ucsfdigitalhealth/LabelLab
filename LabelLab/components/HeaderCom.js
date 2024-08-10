@@ -28,7 +28,7 @@ const Separator = styled.View`
 
 const HeaderCom = () => {
   return (
-    <Container>
+    <Container style={{display: "none"}}>
       <Menu>Following</Menu>
       <Separator />
       <Menu bold="true">For you</Menu>

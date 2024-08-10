@@ -1,7 +1,9 @@
-import { ScrollView, RefreshControl, Text,  View, Alert, Pressable} from 'react-native';
+import { ScrollView, RefreshControl, Text,  View, Alert, Pressable, Dimensions } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-// import Video from './react-native-video';
-import { useEffect, useState } from 'react'
+import { Video, ResizeMode } from 'expo-av';
+// import DocumentPicker from 'react-native-document-picker';
+// import Video from 'react-native-video';
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components/native";
 // import axios from 'axios';
 // import Loader from './Components/Loader.js';
@@ -13,46 +15,69 @@ const UploadVideoText = styled.Text`
     margin: 4% auto 4% auto;
 `
 
+const UploadVideoInstructions = styled.Text`
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    width: 80%;
+    margin: 3% auto 3% auto;
+`
+
 const VideoFields = styled.View`
-    width: 90%;
-    margin: 0 5% 0 5%;
+    width: 100%;
+    padding: 5%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(52, 52, 52, 0.8);
+
 `
 const QuestionText = styled.Text`
-    font-size: 12px;
-    margin-bottom: 1%;
+    font-size: 15px;
+    color: white;
+    margin-bottom: 1%
 `
 
 const VideoFieldInput = styled.TextInput`
-    font-size: 15px;
+    font-size: 20px;
     padding: 0.25% 0.5% 0.25% 0.5%;
+    margin-bottom: 4%;
     border-radius: 2px;
-    margin-bottom: 5%;
-    border: 1px solid black;
-`
+    border: 1px solid grey;
+    color: white;
 
+`
 const UploadMediaBtn = styled.Text`
     text-align: center;
     font-size: 20px;
+    width: 100%;
+    margin-top: 3%;
     padding: 2% 0% 2% 0%;
     font-weight: bold;
-    background-color: #00FF00;
+    background-color: cornflowerblue;
     color: white;
 `
 
+const MenuUploadNavigateBtn = styled.Text`
+    text-align: center;
+    font-size: 20px;
+    margin: 1% 2% 1% 2%;
+    padding: 2% 0% 2% 0%;
+    color: white;
+    width: 45%;
+    border-radius: 5px;
+    font-weight: bold;
+`
+
 const VideoPreview = styled.View`
-    height: 200px;
     border: 2px dashed grey;
-    margin-top: 10%;
+    margin-top: 0%;
 `
 
 const NoFileUploaded = styled.View`
-    position: absolute;
-    left: 20%;
     width: 60%;
-    height: auto;
+    margin: 5% 20% 5% 20%;
     text-align: center;
     alignItems: center;
-    flex: 1;
     justifyContent: center;
 `
 
@@ -60,6 +85,7 @@ const NoFileUploadedText = styled.Text`
     text-align: center;
     font-weight: bold;
     opacity: 0.8;
+    margin-top: 0;
     font-size: 20px;
     color: grey;
 `
@@ -75,10 +101,13 @@ const IndivHashtagText = styled.Text`
     font-size: 15px;
 `
 
+
+
 const VideoUpload = (display) => {
     // related to video uploading.
     const [uploading, setUploading] = useState(false);
     const [temporaryVidURL, setTemporaryVidURL] = useState("")
+    const [uploadedVideoTitle, setUploadedVideoTitle] = useState("")
     const [files, setFiles] = useState([])
     const [fetching, setFetching] = useState(false)
     const [refreshing, setRefreshing] = useState(false); 
@@ -119,51 +148,66 @@ const VideoUpload = (display) => {
         try {
             const pickerResult = await DocumentPicker.getDocumentAsync({ type: 'video/*' })
             console.log(pickerResult)
+            setVideoTitle(pickerResult.assets[0].name)
             setTemporaryVidURL(pickerResult.assets[0].uri)
+            setUploadedVideoTitle(pickerResult.assets[0].name)
+            // https://docs.expo.dev/versions/latest/sdk/video/
         } catch (e) {
             console.log(e)
             console.log("something went wrong.")
         }
     }
+    const videoRef = React.useRef(null);
 
     return (
         display && (
-        <View className="h-full p-10 bg-white">
-            <View style={{height: "3px", background: "linear-gradient(to right, skyblue, red)"}}></View>
-            <UploadVideoText>Upload a video</UploadVideoText>
-            <VideoFields>
-                <QuestionText>Video Title</QuestionText>
-                <VideoFieldInput placeholder="Video Title" onChangeText={(txt) => setVideoTitle(txt)} value={videoTitle}/>
-
-                <QuestionText>Video Category:</QuestionText>
-                <VideoFieldInput placeholder="e.g. DIY, sports, academic, other, etc..." onChangeText={(txt) => setVideoCategory(txt)} value={videoCategory}/>
-                
-                <QuestionText>Enter relevant hashtags (separate by comma or space):</QuestionText>
-                <VideoFieldInput placeholder="e.g. running" onChangeText={(txt) => updateHashtag(txt)} value={currentHashtag}/>
-                <View style={{flexDirection: "row", flexWrap: "wrap", marginBottom: "2"}}>
-                    {enteredHashtags.map(hash => (<IndivHashtagText key={hash} onPress={() => removeHashtag(hash)} >{"#" + hash}</IndivHashtagText>))}
-                </View>
-                {enteredHashtags.length > 0 && <Text style={{color: "red", marginBottom: "3%"}}>Note: tap on a hashtag to remove it.</Text>}
-                <Pressable onPress = {handleVideoUpload}>
-                    <UploadMediaBtn>Select Video</UploadMediaBtn>
-                </Pressable>
-                
-                <VideoPreview>
-                    {temporaryVidURL == "" ? (
+        <ScrollView className="h-full p-10 bg-white">
+            {temporaryVidURL == "" && <UploadVideoText>Upload a video</UploadVideoText>}
+            <View style={{width: "100%", padding: 0}}>
+                {temporaryVidURL == "" ? (
+                    <VideoPreview>
                         <NoFileUploaded>
                             <NoFileUploadedText>No File Uploaded</NoFileUploadedText>
                             <Text style={{textAlign: 'center'}}>When you upload a video, you'll see the preview here.</Text>
+                            <UploadMediaBtn onPress = {handleVideoUpload}>{temporaryVidURL == "" ? "Upload Video" : "Select Another Video"}</UploadMediaBtn>
                         </NoFileUploaded>
-                    ) : (
-                        <View>
-                            <Text>Confirming this works.</Text>
-                            <Text>{temporaryVidURL}</Text>
-                            <video src={temporaryVidURL}/>
-                        </View>
-                    )}
-                </VideoPreview>
-            </VideoFields>
-        </View>)
+                    </VideoPreview>
+                ) : (
+                    <View style={{width: "100%", height: "auto", position: "relative"}}>
+                         <Video source={{uri: temporaryVidURL}} 
+                        ref={videoRef} 
+                        shouldPlay
+                        resizeMode='contain'
+                        style={{width: Dimensions.get('window').width*1, height: "auto"}}
+                        onReadyForDisplay={videoData => {
+                            videoData.srcElement.style.position = "initial"
+                          }}
+                        useNativeControls isLooping/>
+
+                        {temporaryVidURL != "" && <VideoFields>
+                            <UploadVideoInstructions>Please fill out the fields.</UploadVideoInstructions>
+                            <QuestionText>Video Title</QuestionText>
+                            <VideoFieldInput placeholder="Video Title" placeholderTextColor="lightgray" onChangeText={(txt) => setVideoTitle(txt)} value={videoTitle}/>
+
+                            <QuestionText>Video Category:</QuestionText>
+                            <VideoFieldInput placeholder="e.g. DIY, sports, academic, other, etc..." placeholderTextColor="lightgray" onChangeText={(txt) => setVideoCategory(txt)} value={videoCategory}/>
+                            
+                            <QuestionText>Enter relevant hashtags (separate by comma or space):</QuestionText>
+                            <VideoFieldInput placeholder="e.g. running" placeholderTextColor="lightgray" onChangeText={(txt) => updateHashtag(txt)} value={currentHashtag}/>
+                            <View style={{flexDirection: "row", flexWrap: "wrap", marginBottom: "2"}}>
+                                {enteredHashtags.map(hash => (<IndivHashtagText key={hash} onPress={() => removeHashtag(hash)} >{"#" + hash}</IndivHashtagText>))}
+                            </View>
+                            {enteredHashtags.length > 0 && <Text style={{color: "#fa3516", marginBottom: "3%", marginTop: "2%"}}>Note: tap on a hashtag to remove it.</Text>}
+                            <View style={{display: "flex", justifyContent: "center", flexDirection: "row"}}>
+                                <MenuUploadNavigateBtn style={{backgroundColor: "#fa3516"}} onPress = {handleVideoUpload}>Change Video</MenuUploadNavigateBtn>
+                                <MenuUploadNavigateBtn style={{backgroundColor: "cornflowerblue"}}>Upload</MenuUploadNavigateBtn>
+                            </View>
+                        </VideoFields>}
+                    </View>
+                       
+                )}
+            </View>
+        </ScrollView>)
     )
 };
 

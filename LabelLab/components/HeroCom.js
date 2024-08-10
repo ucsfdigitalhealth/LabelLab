@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dimensions, View, FlatList, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient/build/LinearGradient";
 import styled from "styled-components/native";
@@ -103,6 +103,8 @@ const HeroCom = ({ videos }) => {
     
   };
 
+  // const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
+
   return (
     <Container>
       <FlatList
@@ -111,14 +113,14 @@ const HeroCom = ({ videos }) => {
         keyExtractor={(item, index) => index.toString()}
         pagingEnabled
         showsVerticalScrollIndicator={false}
-        onViewableItemsChanged={({ viewableItems }) => {
+        /* onViewableItemsChanged={({ viewableItems }) => {
           // sendHashtagData(viewableItems);
           if (viewableItems && viewableItems.length > 0) {
             setSelected(viewableItems[0].index);
           }
           // setCurrentVidID(viewableItems[0].item.id.toString());
           // setUserScrolled(true)
-        }}
+        }} */
         viewabilityConfig={{ itemVisiblePercentThreshold: 80 }}
       />
     </Container>
