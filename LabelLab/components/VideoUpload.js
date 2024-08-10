@@ -101,9 +101,7 @@ const IndivHashtagText = styled.Text`
     font-size: 15px;
 `
 
-
-
-const VideoUpload = (display) => {
+const VideoUpload = ({display}) => {
     // related to video uploading.
     const [uploading, setUploading] = useState(false);
     const [temporaryVidURL, setTemporaryVidURL] = useState("")
@@ -143,8 +141,6 @@ const VideoUpload = (display) => {
     }
 
     const handleVideoUpload = async () => {
-        console.log(DocumentPicker)
-        console.log("pp")
         try {
             const pickerResult = await DocumentPicker.getDocumentAsync({ type: 'video/*' })
             console.log(pickerResult)
@@ -157,7 +153,6 @@ const VideoUpload = (display) => {
             console.log("something went wrong.")
         }
     }
-    const videoRef = React.useRef(null);
 
     return (
         display && (

@@ -14,7 +14,13 @@ const Container = styled.View`
 `;
 
 const HomeScreen = () => {
-  const [videoUploadShown, setVideoUploadShown] = useState(true);
+  const [videoUploadShown, setVideoUploadShown] = useState(false);
+
+  const setVisibilityFromChild = (vis) => {
+    console.log(vis)
+    setVideoUploadShown(vis)
+  }
+
   return (
     <>
       <StatusBar
@@ -24,9 +30,9 @@ const HomeScreen = () => {
       />
       <Container>
         <HeaderCom />
-        <VideoUpload display={videoUploadShown} />
+        <VideoUpload display={videoUploadShown}/>
         <HeroCom videos={api} />
-        <TabsCom />
+        <TabsCom isUploadMenuVisible={setVisibilityFromChild}/>
       </Container>
     </>
   );

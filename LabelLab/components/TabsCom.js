@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -49,7 +49,14 @@ const Button = styled.View`
   align-items: center;
 `;
 
-const TabsCom = () => {
+const TabsCom = ({isUploadMenuVisible}) => {
+  const [uploadMenuVisibility, setUploadMenuVisibility] = useState(false)
+
+  useEffect(() => {
+    console.log("changing")
+    isUploadMenuVisible(uploadMenuVisibility);
+  }, [uploadMenuVisibility])
+  
   return (
     <Container>
       <Menu>
@@ -62,7 +69,7 @@ const TabsCom = () => {
         <MenuText onclick>Explore</MenuText>
       </Menu>
 
-      <Menu>
+      <Menu onPress={() => {setUploadMenuVisibility(!uploadMenuVisibility)}}>
         <Border
           start={{ x: 1, y: 0 }}
           locations={[0, 0.5, 0.5, 1]}
