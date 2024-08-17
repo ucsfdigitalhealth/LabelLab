@@ -21,6 +21,14 @@
 
   <body id="section_1">
     <button onclick="sendData()">Send API the data</button>
+
+    <form action="/newVideo" enctype="multipart/form-data" method="post">
+      <div>
+        <input type="file" accept=".mp4" name="file">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+
     <header class="site-header">
       <div class="container">
         <div class="row">
