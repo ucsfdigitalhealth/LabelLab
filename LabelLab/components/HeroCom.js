@@ -27,6 +27,7 @@ const Center = styled.View`
   flex-direction: row;
 `;
 
+const ngrokURL = "https://9de9-2603-800c-1101-5658-dd7c-a03d-1151-dee2.ngrok-free.app/" // <-- change this
 const HeroCom = ({ videos }) => {
   const [selected, setSelected] = useState(0);
   const [prevSelected, setPrevSelected] = useState(0);
@@ -36,12 +37,15 @@ const HeroCom = ({ videos }) => {
   const videoContainerHeight = height;
 
   const setHashtagFromChild = (data, isRelated) => {
+    console.log("setting hashtags from child")
     setHashtagData({...data})
     if (isRelated === "yes") {
       setIsRelatedToHashtag(true)
     } else {
       setIsRelatedToHashtag(false)
     }
+
+    console.log("hashtagData after it's been set from child: " + JSON.stringify(hashtagData))
   }
 
   useEffect(() => {
@@ -51,9 +55,7 @@ const HeroCom = ({ videos }) => {
   async function sendHashtagData() {
     // console.log(JSON.stringify(item))
     if (Object.keys(hashtagData).length > 0) {
-      console.log("Official: sending data");
-      console.log("Video ID is " + videos[prevSelected].id.toString())
-      fetch('https://labellab.up.railway.app/new', {
+      fetch(`${ngrokURL}new`, {
         method: 'POST',
         body: JSON.stringify({
           videoID: videos[prevSelected].id.toString(),
@@ -64,10 +66,11 @@ const HeroCom = ({ videos }) => {
             'Content-Type': 'application/json'
         },
       }).then((data) => {
-        console.log('successfully added ' + JSON.stringify(data))
+        console.log('successfully added')
          // after the API call is made, update the previous index.
       })
       setPrevSelected(selected)
+      setHashtagData({})
     } else {
       setPrevSelected(selected)
     }
@@ -75,7 +78,6 @@ const HeroCom = ({ videos }) => {
   
   const renderItem = ({ item, index }) => {
     // setCurrentVidID(item.id.toString())
-    console.log(JSON.stringify(videos[prevSelected].id))
     return(
       <View style={{ height: videoContainerHeight * 1.05 }}>
       <VideoPlayerCom
@@ -102,8 +104,17 @@ const HeroCom = ({ videos }) => {
     )
     
   };
+  const onViewableItemsChanged=({ viewableItems }) => {
+    // sendHashtagData(viewableItems);
+    if (viewableItems && viewableItems.length > 0) {
+      // sendHashtagData()
+      setSelected(viewableItems[viewableItems.length-1].index);
+    }
+    // setCurrentVidID(viewableItems[0].item.id.toString());
+    // setUserScrolled(true)
+  }
 
-  // const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
+  const viewabilityConfigCallbackPairs = useRef([{ onViewableItemsChanged }])
 
   return (
     <Container>
@@ -113,14 +124,7 @@ const HeroCom = ({ videos }) => {
         keyExtractor={(item, index) => index.toString()}
         pagingEnabled
         showsVerticalScrollIndicator={false}
-        /* onViewableItemsChanged={({ viewableItems }) => {
-          // sendHashtagData(viewableItems);
-          if (viewableItems && viewableItems.length > 0) {
-            setSelected(viewableItems[0].index);
-          }
-          // setCurrentVidID(viewableItems[0].item.id.toString());
-          // setUserScrolled(true)
-        }} */
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         viewabilityConfig={{ itemVisiblePercentThreshold: 80 }}
       />
     </Container>
